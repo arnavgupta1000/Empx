@@ -1,24 +1,27 @@
-//
-//  ContentView.swift
-//  ChatSecure
-//
-//  Created by Arnav Gupta on 12/07/24.
-//
-
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
+    @State private var isLoggedIn = false
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            if isLoggedIn {
+                ChatView()
+            } else {
+                WelcomeView(isLoggedIn: $isLoggedIn)
+            }
         }
-        .padding()
+        .onAppear {
+            if Auth.auth().currentUser != nil {
+                self.isLoggedIn = true
+            }
+        }
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
