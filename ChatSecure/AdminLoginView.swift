@@ -7,7 +7,7 @@ struct AdminLoginView: View {
     @State private var password: String = ""
     @State private var errorMessage: String?
     @State private var navigateToAdminPanel = false
-    @State private var showEmployeeRegisterButton = false // Track if admin is logged in
+    @State private var showEmployeeRegisterButton = false
 
     var body: some View {
         NavigationView {
@@ -22,12 +22,12 @@ struct AdminLoginView: View {
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                    .background(Color.white) // Match the background color
+                    .background(Color.white)
 
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                    .background(Color.white) // Match the background color
+                    .background(Color.white)
 
                 if let errorMessage = errorMessage {
                     Text(errorMessage)
@@ -44,11 +44,11 @@ struct AdminLoginView: View {
                 }
                 .padding()
 
-                if showEmployeeRegisterButton {
-                    NavigationLink(destination: RegisterView(isLoggedIn: $isLoggedIn)) {
-                        Text("Employee Register")
+                if navigateToAdminPanel {
+                    NavigationLink(destination: AdminPanelView(isLoggedIn: $isLoggedIn)) {
+                        Text("Go to Admin Panel")
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.green)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
@@ -60,7 +60,7 @@ struct AdminLoginView: View {
             .background(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.white]),
                                        startPoint: .top, endPoint: .bottom)
                             .edgesIgnoringSafeArea(.all))
-            .navigationBarHidden(true) // Hide the default navigation bar
+            .navigationBarHidden(true)
         }
     }
 
@@ -69,7 +69,6 @@ struct AdminLoginView: View {
             if let error = error {
                 errorMessage = error.localizedDescription
             } else {
-                // Check if the logged-in user has the admin role
                 checkUserRoleAndProceed()
             }
         }
@@ -78,7 +77,6 @@ struct AdminLoginView: View {
     func checkUserRoleAndProceed() {
         guard let user = Auth.auth().currentUser else { return }
 
-        // Fetch user role from Firestore or your database
         let db = Firestore.firestore()
         let userRef = db.collection("user").document(user.uid)
 

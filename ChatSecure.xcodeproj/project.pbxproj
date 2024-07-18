@@ -11,6 +11,12 @@
 		252022612C457EA500EA0456 /* AdminLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252022602C457EA500EA0456 /* AdminLoginView.swift */; };
 		252022632C457EC900EA0456 /* AdminPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252022622C457EC900EA0456 /* AdminPanelView.swift */; };
 		259CCB032C498B0F00131185 /* BotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CCB022C498B0F00131185 /* BotView.swift */; };
+		259CCB052C49AAC100131185 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CCB042C49AAC100131185 /* Task.swift */; };
+		259CCB072C49AAE500131185 /* AdminTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CCB062C49AAE500131185 /* AdminTaskView.swift */; };
+		259CCB092C49AB0500131185 /* EmployeeTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CCB082C49AB0500131185 /* EmployeeTaskView.swift */; };
+		259CCB0B2C49AB2300131185 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CCB0A2C49AB2300131185 /* TaskViewModel.swift */; };
+		259CCB0D2C49B3D500131185 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CCB0C2C49B3D500131185 /* TaskDetailView.swift */; };
+		259CCB0F2C49BAE000131185 /* AdminTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CCB0E2C49BADF00131185 /* AdminTaskListView.swift */; };
 		25DD46AC2C4684A0007ABCDC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DD46AB2C46849F007ABCDC /* HomeView.swift */; };
 		25DD46AF2C46CD9A007ABCDC /* Alamofire.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25DD46AE2C46CD9A007ABCDC /* Alamofire.xcframework */; };
 		25DD46B02C46CD9A007ABCDC /* Alamofire.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 25DD46AE2C46CD9A007ABCDC /* Alamofire.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -53,6 +59,12 @@
 		252022602C457EA500EA0456 /* AdminLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminLoginView.swift; sourceTree = "<group>"; };
 		252022622C457EC900EA0456 /* AdminPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelView.swift; sourceTree = "<group>"; };
 		259CCB022C498B0F00131185 /* BotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotView.swift; sourceTree = "<group>"; };
+		259CCB042C49AAC100131185 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		259CCB062C49AAE500131185 /* AdminTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTaskView.swift; sourceTree = "<group>"; };
+		259CCB082C49AB0500131185 /* EmployeeTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeTaskView.swift; sourceTree = "<group>"; };
+		259CCB0A2C49AB2300131185 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		259CCB0C2C49B3D500131185 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		259CCB0E2C49BADF00131185 /* AdminTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTaskListView.swift; sourceTree = "<group>"; };
 		25DD46AB2C46849F007ABCDC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		25DD46AE2C46CD9A007ABCDC /* Alamofire.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Alamofire.xcframework; path = ../BotEmp/Carthage/Build/Alamofire.xcframework; sourceTree = "<group>"; };
 		25DD46B22C46CEB6007ABCDC /* BotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotService.swift; sourceTree = "<group>"; };
@@ -117,22 +129,28 @@
 			isa = PBXGroup;
 			children = (
 				25F670D12C4194EF008EC659 /* ChatSecureApp.swift */,
-				259CCB022C498B0F00131185 /* BotView.swift */,
-				25DD46B42C46CFCF007ABCDC /* Models.swift */,
-				252022622C457EC900EA0456 /* AdminPanelView.swift */,
 				2520225E2C4526AE00EA0456 /* KeyboardResponder.swift */,
-				25F670D32C4194EF008EC659 /* ContentView.swift */,
+				25F670F22C41971B008EC659 /* WelcomeView.swift */,
 				25F670DF2C41951B008EC659 /* Message.swift */,
+				25DD46AB2C46849F007ABCDC /* HomeView.swift */,
+				25F670F62C4197B8008EC659 /* LoginView.swift */,
+				252022602C457EA500EA0456 /* AdminLoginView.swift */,
+				252022622C457EC900EA0456 /* AdminPanelView.swift */,
+				25DD46B42C46CFCF007ABCDC /* Models.swift */,
+				25F670D32C4194EF008EC659 /* ContentView.swift */,
 				25F670E12C419527008EC659 /* ChatView.swift */,
 				25F670E32C419542008EC659 /* ChatViewModel.swift */,
 				25F670E52C419558008EC659 /* ChatRowView.swift */,
 				25F670F02C4196FD008EC659 /* Constants.swift */,
-				25F670F22C41971B008EC659 /* WelcomeView.swift */,
 				25F670F42C419775008EC659 /* RegisterView.swift */,
-				25F670F62C4197B8008EC659 /* LoginView.swift */,
-				25DD46AB2C46849F007ABCDC /* HomeView.swift */,
-				252022602C457EA500EA0456 /* AdminLoginView.swift */,
+				259CCB022C498B0F00131185 /* BotView.swift */,
 				25DD46B22C46CEB6007ABCDC /* BotService.swift */,
+				259CCB042C49AAC100131185 /* Task.swift */,
+				259CCB0C2C49B3D500131185 /* TaskDetailView.swift */,
+				259CCB0A2C49AB2300131185 /* TaskViewModel.swift */,
+				259CCB082C49AB0500131185 /* EmployeeTaskView.swift */,
+				259CCB062C49AAE500131185 /* AdminTaskView.swift */,
+				259CCB0E2C49BADF00131185 /* AdminTaskListView.swift */,
 				25F670F82C419CED008EC659 /* GoogleService-Info.plist */,
 				25F670D52C4194F6008EC659 /* Assets.xcassets */,
 				25F670D72C4194F6008EC659 /* Preview Content */,
@@ -229,21 +247,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				252022612C457EA500EA0456 /* AdminLoginView.swift in Sources */,
+				259CCB0B2C49AB2300131185 /* TaskViewModel.swift in Sources */,
 				259CCB032C498B0F00131185 /* BotView.swift in Sources */,
 				25DD46AC2C4684A0007ABCDC /* HomeView.swift in Sources */,
 				25F670F52C419776008EC659 /* RegisterView.swift in Sources */,
 				25F670E22C419527008EC659 /* ChatView.swift in Sources */,
 				25F670E02C41951B008EC659 /* Message.swift in Sources */,
 				2520225F2C4526AE00EA0456 /* KeyboardResponder.swift in Sources */,
+				259CCB092C49AB0500131185 /* EmployeeTaskView.swift in Sources */,
 				25F670D42C4194EF008EC659 /* ContentView.swift in Sources */,
 				25F670F32C41971B008EC659 /* WelcomeView.swift in Sources */,
 				252022632C457EC900EA0456 /* AdminPanelView.swift in Sources */,
 				25F670E62C419558008EC659 /* ChatRowView.swift in Sources */,
 				25F670F12C4196FD008EC659 /* Constants.swift in Sources */,
+				259CCB0F2C49BAE000131185 /* AdminTaskListView.swift in Sources */,
+				259CCB0D2C49B3D500131185 /* TaskDetailView.swift in Sources */,
 				25DD46B52C46CFCF007ABCDC /* Models.swift in Sources */,
 				25DD46B32C46CEB6007ABCDC /* BotService.swift in Sources */,
 				25F670E42C419542008EC659 /* ChatViewModel.swift in Sources */,
 				25F670F72C4197B8008EC659 /* LoginView.swift in Sources */,
+				259CCB072C49AAE500131185 /* AdminTaskView.swift in Sources */,
+				259CCB052C49AAC100131185 /* Task.swift in Sources */,
 				25F670D22C4194EF008EC659 /* ChatSecureApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

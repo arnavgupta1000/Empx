@@ -6,16 +6,32 @@ struct BotView: View {
     private let botService = BotService()
     
     var body: some View {
-        NavigationView {
+        ZStack {
+            // Background gradient
+            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.white]),
+                           startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            
             VStack {
-                List(messages, id: \.self) { message in
-                    Text(message)
+                // Message List
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ForEach(messages, id: \.self) { message in
+                            Text(message)
+                                .padding()
+                                .background(message.starts(with: "You:") ? Color.white : Color.gray.opacity(0.2))
+                                .cornerRadius(10)
+                                .padding(.horizontal)
+                                .frame(maxWidth: .infinity, alignment: .leading) // Align to the left
+                        }
+                    }
                 }
                 
+                // Input Field and Send Button
                 HStack {
                     TextField("Enter message...", text: $messageText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                        .padding(.leading)
                     
                     Button(action: sendMessage) {
                         Text("Send")
@@ -24,12 +40,13 @@ struct BotView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .padding()
+                    .padding(.trailing)
                 }
+                .padding(.bottom)
             }
-            .navigationTitle("Bot")
-            .onAppear(perform: startConversation)
         }
+        .navigationTitle("Bot")
+        .onAppear(perform: startConversation)
     }
     
     private func startConversation() {

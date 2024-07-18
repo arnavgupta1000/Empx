@@ -28,6 +28,18 @@ struct HomeView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
+                    NavigationLink(destination: EmployeeTasksView()) {
+                        Text("Tasks")
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .foregroundColor(Color(UIColor.systemBlue))
+                            .cornerRadius(10)
+                            .shadow(radius: 10)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
                     
                     NavigationLink(destination: BotView()) {
                         Text("Bot")

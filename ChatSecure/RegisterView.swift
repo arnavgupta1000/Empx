@@ -19,8 +19,8 @@ struct RegisterView: View {
         NavigationView {
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.white]),
-                                               startPoint: .top, endPoint: .bottom)
-                                    .edgesIgnoringSafeArea(.all)
+                               startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
                 
                 VStack {
                     Spacer().frame(height: 50)
@@ -72,8 +72,8 @@ struct RegisterView: View {
                     .background(Color.white)
                     .cornerRadius(30)
                     .shadow(radius: 20)
+                    .padding(.horizontal, 20)
                 }
-                .padding(.horizontal, 20)
                 .offset(y: -offset)
                 .animation(.easeOut(duration: 0.16))
                 .onAppear {
@@ -85,6 +85,10 @@ struct RegisterView: View {
                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (notification) in
                         self.offset = 0
                     }
+                }
+                .onDisappear {
+                    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+                    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
                 }
             }
         }
