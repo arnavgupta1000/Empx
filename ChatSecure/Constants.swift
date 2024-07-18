@@ -15,6 +15,13 @@ struct K {
         static let dateField = "date"
         static let userIDField = "userID"
         static let chatRoomIDField = "chatRoomID"
+        static let employeeCollectionName = "employees"
+        static let nameField = "name"
+        static let phoneField = "phone"
+        static let empIDField = "empID"
+        static let salaryField = "salary"
+        static let addressField = "address"
+                static let designationField = "designation"
     }
     
     struct Cell {

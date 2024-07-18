@@ -32,7 +32,7 @@ struct LoginView: View {
                     .cornerRadius(10)
             }
             .padding()
-            NavigationLink(destination: ChatView(), isActive: $navigateToChat) {
+            NavigationLink(destination: HomeView(), isActive: $navigateToChat) {
                             EmptyView()
                         }
         }

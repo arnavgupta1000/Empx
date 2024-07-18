@@ -1,8 +1,32 @@
-//
-//  HomeView.swift
-//  ChatSecure
-//
-//  Created by Arnav Gupta on 16/07/24.
-//
+import SwiftUI
 
-import Foundation
+struct HomeView: View {
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("Welcome to Home")
+                    .font(.title)
+                    .padding()
+                
+                NavigationLink(destination: ChatView()) {
+                    Text("Chat")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                NavigationLink(destination: BotView()) {
+                    Text("Bot")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            .navigationTitle("Home")
+        }
+    }
+}

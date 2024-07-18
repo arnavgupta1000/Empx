@@ -17,71 +17,65 @@ class ChatViewModel: ObservableObject {
         listener?.remove()
     }
 
-     func fetchInitialMessages() {
-        if let userID = Auth.auth().currentUser?.uid {
-            db.collection(K.FStore.collectionName)
-                .whereField(K.FStore.userIDField, isEqualTo: userID)
-                .order(by: K.FStore.dateField)
-                .getDocuments { querySnapshot, error in
-                    if let error = error {
-                        print("Error fetching documents: \(error)")
-                        return
+    func fetchInitialMessages() {
+        db.collection(K.FStore.collectionName)
+            .order(by: K.FStore.dateField)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching documents: \(error)")
+                    return
+                }
+
+                var fetchedMessages: [Message] = []
+
+                for doc in querySnapshot?.documents ?? [] {
+                    let data = doc.data()
+                    if let messageText = data[K.FStore.bodyField] as? String,
+                       let messageSender = data[K.FStore.senderField] as? String,
+                       let timestamp = data[K.FStore.dateField] as? Timestamp {
+                        let isUser = messageSender == Auth.auth().currentUser?.email
+                        let newMessage = Message(text: messageText, isUser: isUser, timestamp: timestamp.dateValue())
+                        fetchedMessages.append(newMessage)
                     }
-                    
-                    var fetchedMessages: [Message] = []
-                    
-                    for doc in querySnapshot?.documents ?? [] {
-                        let data = doc.data()
+                }
+
+                DispatchQueue.main.async {
+                    self.messages = fetchedMessages
+                }
+            }
+    }
+
+    func setupSnapshotListener() {
+        listener = db.collection(K.FStore.collectionName)
+            .order(by: K.FStore.dateField)
+            .addSnapshotListener { querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshot: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+
+                snapshot.documentChanges.forEach { change in
+                    if change.type == .added {
+                        let data = change.document.data()
                         if let messageText = data[K.FStore.bodyField] as? String,
                            let messageSender = data[K.FStore.senderField] as? String,
                            let timestamp = data[K.FStore.dateField] as? Timestamp {
                             let isUser = messageSender == Auth.auth().currentUser?.email
                             let newMessage = Message(text: messageText, isUser: isUser, timestamp: timestamp.dateValue())
-                            fetchedMessages.append(newMessage)
-                        }
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.messages = fetchedMessages
-                    }
-                }
-        }
-    }
 
-     func setupSnapshotListener() {
-        if let userID = Auth.auth().currentUser?.uid {
-            listener = db.collection(K.FStore.collectionName)
-                .whereField(K.FStore.userIDField, isEqualTo: userID)
-                .order(by: K.FStore.dateField)
-                .addSnapshotListener { querySnapshot, error in
-                    guard let snapshot = querySnapshot else {
-                        print("Error fetching snapshot: \(error?.localizedDescription ?? "Unknown error")")
-                        return
-                    }
-                    
-                    snapshot.documentChanges.forEach { change in
-                        if change.type == .added {
-                            let data = change.document.data()
-                            if let messageText = data[K.FStore.bodyField] as? String,
-                               let messageSender = data[K.FStore.senderField] as? String,
-                               let timestamp = data[K.FStore.dateField] as? Timestamp {
-                                let isUser = messageSender == Auth.auth().currentUser?.email
-                                let newMessage = Message(text: messageText, isUser: isUser, timestamp: timestamp.dateValue())
-                                
-                                DispatchQueue.main.async {
-                                    self.messages.append(newMessage)
-                                }
+                            DispatchQueue.main.async {
+                                self.messages.append(newMessage)
                             }
                         }
                     }
                 }
-        }
+            }
     }
 
     func sendMessage(text: String) {
         if let messageSender = Auth.auth().currentUser?.email,
            let userID = Auth.auth().currentUser?.uid {
-            let newMessage = Message(
+            _ = Message(
                 text: text,
                 isUser: true,
                 timestamp: Date()

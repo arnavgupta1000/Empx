@@ -12,32 +12,40 @@ struct WelcomeView: View {
                 .multilineTextAlignment(.center)
                 .padding()
             
-            NavigationLink(destination: RegisterView(isLoggedIn: $isLoggedIn)) {
-                Text("Employee Register")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
+            Spacer()
             
-            NavigationLink(destination: LoginView(isLoggedIn: $isLoggedIn)) {
-                Text("Employee Login")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            LazyVStack(spacing: 20) {
+                NavigationLink(destination: LoginView(isLoggedIn: $isLoggedIn)) {
+                    Text("Employee Login")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
+                NavigationLink(destination: AdminLoginView(isLoggedIn: $isLoggedIn)) {
+                    Text("Admin Login")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
             }
+            .padding(.horizontal, 40)
             
-            NavigationLink(destination: AdminLoginView(isLoggedIn: $isLoggedIn)) {
-                Text("Admin Login")
-                    .padding()
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
+            Spacer()
         }
         .onAppear(perform: animateText)
         .navigationBarHidden(true)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.white]),
+                           startPoint: .topLeading,
+                           endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+        )
     }
     
     func animateText() {
@@ -58,3 +66,4 @@ struct WelcomeView_Previews: PreviewProvider {
         WelcomeView(isLoggedIn: .constant(false))
     }
 }
+
