@@ -4,4 +4,5 @@ struct Message: Identifiable {
     var text: String
     var isUser: Bool
     var timestamp: Date
+    var senderName: String
 }

@@ -31,16 +31,17 @@ class ChatViewModel: ObservableObject {
                 for doc in querySnapshot?.documents ?? [] {
                     let data = doc.data()
                     if let messageText = data[K.FStore.bodyField] as? String,
-                       let messageSender = data[K.FStore.senderField] as? String,
+                       let messageSenderID = data[K.FStore.userIDField] as? String,
                        let timestamp = data[K.FStore.dateField] as? Timestamp {
-                        let isUser = messageSender == Auth.auth().currentUser?.email
-                        let newMessage = Message(text: messageText, isUser: isUser, timestamp: timestamp.dateValue())
-                        fetchedMessages.append(newMessage)
+                        self.fetchSenderName(userID: messageSenderID) { senderName in
+                            let isUser = messageSenderID == Auth.auth().currentUser?.uid
+                            let newMessage = Message(text: messageText, isUser: isUser, timestamp: timestamp.dateValue(), senderName: senderName)
+                            fetchedMessages.append(newMessage)
+                            DispatchQueue.main.async {
+                                self.messages = fetchedMessages
+                            }
+                        }
                     }
-                }
-
-                DispatchQueue.main.async {
-                    self.messages = fetchedMessages
                 }
             }
     }
@@ -58,18 +59,33 @@ class ChatViewModel: ObservableObject {
                     if change.type == .added {
                         let data = change.document.data()
                         if let messageText = data[K.FStore.bodyField] as? String,
-                           let messageSender = data[K.FStore.senderField] as? String,
+                           let messageSenderID = data[K.FStore.userIDField] as? String,
                            let timestamp = data[K.FStore.dateField] as? Timestamp {
-                            let isUser = messageSender == Auth.auth().currentUser?.email
-                            let newMessage = Message(text: messageText, isUser: isUser, timestamp: timestamp.dateValue())
-
-                            DispatchQueue.main.async {
-                                self.messages.append(newMessage)
+                            self.fetchSenderName(userID: messageSenderID) { senderName in
+                                let isUser = messageSenderID == Auth.auth().currentUser?.uid
+                                let newMessage = Message(text: messageText, isUser: isUser, timestamp: timestamp.dateValue(), senderName: senderName)
+                                DispatchQueue.main.async {
+                                    self.messages.append(newMessage)
+                                }
                             }
                         }
                     }
                 }
             }
+    }
+
+    func fetchSenderName(userID: String, completion: @escaping (String) -> Void) {
+        db.collection("employees").document(userID).getDocument { document, error in
+            if let document = document, document.exists {
+                if let senderName = document.data()?["name"] as? String {
+                    completion(senderName)
+                } else {
+                    completion("Unknown")
+                }
+            } else {
+                completion("Unknown")
+            }
+        }
     }
 
     func sendMessage(text: String) {
@@ -78,7 +94,7 @@ class ChatViewModel: ObservableObject {
             _ = Message(
                 text: text,
                 isUser: true,
-                timestamp: Date()
+                timestamp: Date(), senderName:messageSender
             )
 
             db.collection(K.FStore.collectionName).addDocument(data: [

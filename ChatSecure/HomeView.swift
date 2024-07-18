@@ -3,30 +3,53 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Welcome to Home")
-                    .font(.title)
-                    .padding()
+            ZStack {
+                // Background gradient
+                LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.white]),
+                               startPoint: .top, endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
                 
-                NavigationLink(destination: ChatView()) {
-                    Text("Chat")
-                        .padding()
-                        .background(Color.blue)
+                VStack {
+                    Text("Choose The Service")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .padding(.bottom, 30)
+                    
+                    NavigationLink(destination: ChatView()) {
+                        Text("Chat")
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .foregroundColor(Color(UIColor.systemBlue))
+                            .cornerRadius(10)
+                            .shadow(radius: 10)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
+                    
+                    NavigationLink(destination: BotView()) {
+                        Text("Bot")
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .foregroundColor(Color(UIColor.systemBlue))
+                            .cornerRadius(10)
+                            .shadow(radius: 10)
+                    }
+                    .padding(.horizontal, 20)
                 }
-                .padding()
-                
-                NavigationLink(destination: BotView()) {
-                    Text("Bot")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding()
+                .padding(.top, 50)
             }
             .navigationTitle("Home")
         }
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
     }
 }

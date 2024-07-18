@@ -12,13 +12,22 @@ struct AdminLoginView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
+                
+                Text("Admin Login")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding()
+
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                    .background(Color.white) // Match the background color
 
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
+                    .background(Color.white) // Match the background color
 
                 if let errorMessage = errorMessage {
                     Text(errorMessage)
@@ -43,9 +52,15 @@ struct AdminLoginView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
+                    .padding()
                 }
+                
+                Spacer()
             }
-            .navigationBarTitle("Admin Login")
+            .background(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.white]),
+                                       startPoint: .top, endPoint: .bottom)
+                            .edgesIgnoringSafeArea(.all))
+            .navigationBarHidden(true) // Hide the default navigation bar
         }
     }
 
