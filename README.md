@@ -14,6 +14,7 @@ WorkSphere is a comprehensive employee management application designed to enhanc
 - **SwiftUI**: For building a modern and responsive user interface.
 - **Firebase**: Backend services for authentication, real-time database, and storage.
 - **Swift**: Core programming language for iOS development.
+- **Azure Bot Service** : Used azure bot service to create chatbot in Node Js
 
 ## Installation
 
