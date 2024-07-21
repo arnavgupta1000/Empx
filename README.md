@@ -8,7 +8,7 @@ WorkSphere is a comprehensive employee management application designed to enhanc
 - **Real-Time Chat**: Encrypted chat feature for secure communication between employees and HR.
 - **Task Scheduler**: Allows managers to assign, monitor, and manage tasks with status updates.
 - **Admin Tools**: Administrative functionalities for employee management and data access.
-- **Admin Tools**: ChatBot created for Employees to ask all the HR questions they might have.
+- **ChatBot**: ChatBot created for Employees to ask all the HR questions they might have.
 ## Technologies Used
 
 - **SwiftUI**: For building a modern and responsive user interface.
